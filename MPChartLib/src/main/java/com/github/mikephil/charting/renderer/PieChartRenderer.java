@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.RadialGradient;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Layout;
@@ -266,7 +268,10 @@ public class PieChartRenderer extends DataRenderer {
 
             final boolean accountForSliceSpacing = sliceSpace > 0.f && sliceAngle <= 180.f;
 
-            mRenderPaint.setColor(dataSet.getColor(j));
+            //mRenderPaint.setColor(dataSet.getColor(j));
+            mRenderPaint.setShader(
+                    new RadialGradient(center.x, center.y, radius, dataSet.getColor(j * 2), dataSet.getColor(j * 2 + 1),
+                            Shader.TileMode.MIRROR));
 
             final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
                     0.f :
@@ -395,6 +400,10 @@ public class PieChartRenderer extends DataRenderer {
             }
 
             mPathBuffer.close();
+
+            mRenderPaint.setShader(
+                    new RadialGradient(center.x, center.y, radius, dataSet.getColor(j * 2), dataSet.getColor(j * 2 + 1),
+                            Shader.TileMode.MIRROR));
 
             mBitmapCanvas.drawPath(mPathBuffer, mRenderPaint);
 
