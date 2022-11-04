@@ -269,9 +269,6 @@ public class PieChartRenderer extends DataRenderer {
             final boolean accountForSliceSpacing = sliceSpace > 0.f && sliceAngle <= 180.f;
 
             //mRenderPaint.setColor(dataSet.getColor(j));
-            mRenderPaint.setShader(
-                    new RadialGradient(center.x, center.y, radius, dataSet.getColor(j * 2), dataSet.getColor(j * 2 + 1),
-                            Shader.TileMode.MIRROR));
 
             final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
                     0.f :
@@ -579,7 +576,7 @@ public class PieChartRenderer extends DataRenderer {
                     int lineColor = ColorTemplate.COLOR_NONE;
 
                     if (isUseValueColorForLineEnabled)
-                        lineColor = dataSet.getColor(j);
+                        lineColor = dataSet.getColor(j * 2 + 1 );
                     else if (valueLineColor != ColorTemplate.COLOR_NONE)
                         lineColor = valueLineColor;
 
@@ -1050,7 +1047,7 @@ public class PieChartRenderer extends DataRenderer {
                         * Math.sin(Math.toRadians((angle + sliceAngle)
                         * phaseY)) + center.y);
 
-                mRenderPaint.setColor(dataSet.getColor(j));
+                mRenderPaint.setColor(dataSet.getColor(j * 2 + 1));
                 mBitmapCanvas.drawCircle(x, y, circleRadius, mRenderPaint);
             }
 
